@@ -67,7 +67,7 @@ class _JournalState extends State<Journal> {
               else if(index==2){
                 selectedColor = Colors.orangeAccent;
               }
-              else{
+              else if(index == 3){
                 Navigator.pushNamed(context, '/New_Area');
                 index = 0;
                 setState(() {
@@ -132,7 +132,6 @@ class _JournalState extends State<Journal> {
                           ),
                           SizedBox(width: 70,),
                           Icon(Icons.check, color: Colors.grey)
-
                         ],
                       ),
                     ),
