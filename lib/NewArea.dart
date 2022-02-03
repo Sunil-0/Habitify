@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'Journal.dart';
 class New_Area extends StatefulWidget {
   const New_Area({Key? key}) : super(key: key);
 
@@ -10,10 +11,6 @@ class New_Area extends StatefulWidget {
 
 class _New_AreaState extends State<New_Area> {
   bool Value = true;
-  void _incrementCounter() {
-    setState(() {
-    });
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,23 +97,56 @@ class _New_AreaState extends State<New_Area> {
   }
 }
 
-class colorEnabled extends StatelessWidget {
-  Color colr;
-  colorEnabled({
-    Key? key, required this.colr
-  }) : super(key: key);
+class colorEnabled extends StatefulWidget {
+   Color? colr;
+  colorEnabled({Key? key, required this.colr}) : super(key: key);
 
   @override
+  _colorEnabledState createState() => _colorEnabledState();
+}
+
+class _colorEnabledState extends State<colorEnabled> {
+  bool Visible = true;
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(15),
-      width: 25,
-      height: 25,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(50),
-        border: Border.all(),
-        color: this.colr,
-      ),
+    return GestureDetector(
+        child: Container(
+          margin: EdgeInsets.all(15),
+          width: 25,
+          height: 25,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(50),
+            border: Border.all(),
+            color: widget.colr,
+          ),
+          child: Visibility(
+            visible: Visible,
+            child: Icon(Icons.check, color: Colors.black,),
+          ),
+        ),
+      onTap: () {
+          setState(() {
+          });
+          Visible == true ? true : false;
+      },
     );
   }
 }
+
+
+/*
+Container(
+        margin: EdgeInsets.all(15),
+        width: 25,
+        height: 25,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(50),
+          border: Border.all(),
+          color: this.colr,
+        ),
+        child: Visibility(
+          visible: Visible == null ? true : false,
+          child: Icon(Icons.check, color: Colors.white, size: 15,),
+        ),
+      );
+ */
