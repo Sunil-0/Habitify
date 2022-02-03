@@ -36,6 +36,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   intl:
   flutter_switch:
+  flutter_speed_dial:
+  percent_indicator:
 
 dev_dependencies:
   flutter_test:

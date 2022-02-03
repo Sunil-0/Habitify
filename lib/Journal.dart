@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 class Journal extends StatefulWidget {
   const Journal({Key? key}) : super(key: key);
 
@@ -68,6 +69,10 @@ class _JournalState extends State<Journal> {
               }
               else{
                 Navigator.pushNamed(context, '/New_Area');
+                index = 0;
+                setState(() {
+
+                });
               }
               setState(() {
 
@@ -245,13 +250,81 @@ class _JournalState extends State<Journal> {
               Container(),
             ]),
 
-        floatingActionButton: FloatingActionButton(
-          onPressed: (){},
-          tooltip: 'Increment',
-          child: const Icon(Icons.add),
-        ), // This trailing comma makes auto-formatting nicer for build methods.
+        floatingActionButton: SpeedDial(
+          animatedIcon: AnimatedIcons.menu_close,
+          visible: true,
+          backgroundColor: Colors.blue,
+          overlayColor: Colors.grey,
+          children: [
+            SpeedDialChild(
+              labelWidget: Container(
+                padding: EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.white,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(children: [
+                      Text("Today "),
+                      Text(TimeOfDay.now().format(context)),
+                      SizedBox(width: 15,),
+                      Text("change", style: TextStyle(color: Colors.blue),)
+                    ],),
+                    SizedBox(height: 25,),
+                    Row(children: [
+                      EmojiRating(textEmoji: ' 😡 ', textFeeling: 'Terrible'),
+                      SizedBox(width: 15,),
+                      EmojiRating(textEmoji: ' 😞 ', textFeeling: 'Bad'),
+                      SizedBox(width: 15,),
+                      EmojiRating(textEmoji: ' 😑 ', textFeeling: 'Ok'),
+                      SizedBox(width: 15,),
+                      EmojiRating(textEmoji: ' 😊 ', textFeeling: 'Good'),
+                      SizedBox(width: 15,),
+                      EmojiRating(textEmoji: ' 😍 ', textFeeling: 'Excellent'),
+                    ],),
+                  ],
+                ),
+              ),
+            ),
+            buildSpeedDialChild('Create Good Habits', Icons.all_inclusive ),
+            buildSpeedDialChild('Break Bad Habits', Icons.auto_fix_off ),
+          ],
+        )
 
       ),
+    );
+  }
+
+  SpeedDialChild buildSpeedDialChild(String text, IconData icon) {
+    return SpeedDialChild(
+           labelWidget: Container(
+             padding: EdgeInsets.all(15),
+             decoration: BoxDecoration(
+               borderRadius: BorderRadius.circular(5),
+               color: Colors.white,
+             ),
+             child: Row(children: [Text(text + "", style: TextStyle(color: Colors.blue), ), Icon(icon, color: Colors.blue,) ],),
+           )
+         );
+  }
+}
+
+class EmojiRating extends StatelessWidget {
+  String textEmoji, textFeeling;
+  EmojiRating({
+    Key? key, required this.textEmoji, required this.textFeeling
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(textEmoji, style: TextStyle(fontSize: 25),),
+        SizedBox(height: 15,),
+        Text(textFeeling),
+      ],
     );
   }
 }
@@ -305,4 +378,3 @@ class habits extends StatelessWidget {
     );
   }
 }
-

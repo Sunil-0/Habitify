@@ -1,5 +1,8 @@
 import 'dart:ffi';
+import 'package:habitify/Challenges.dart';
 import 'package:habitify/Journal.dart';
+import 'package:habitify/Setting.dart';
+import 'package:habitify/Upgrade.dart';
 import 'package:intl/intl.dart';
 import 'NewArea.dart';
 import 'package:flutter/cupertino.dart';
@@ -44,6 +47,9 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Widget> pages = [
     const Journal(),
     const progress(),
+    const challenges(),
+    const upgrade(),
+    const setting()
   ];
 
   void _incrementCounter() {
@@ -59,26 +65,11 @@ class _MyHomePageState extends State<MyHomePage> {
         type: BottomNavigationBarType.fixed,
         currentIndex: _counter,
         items: [
-          BottomNavigationBarItem(
-            label: "Journal",
-            icon: Icon(Icons.view_day_outlined),
-          ),
-          BottomNavigationBarItem(
-            label: "Progress",
-            icon: Icon(Icons.access_time),
-          ),
-          BottomNavigationBarItem(
-            label: "Challenges",
-            icon: Icon(Icons.animation),
-          ),
-          BottomNavigationBarItem(
-            label: "Upgrade",
-            icon: Icon(Icons.alt_route),
-          ),
-          BottomNavigationBarItem(
-            label: "Settings",
-            icon: Icon(Icons.settings),
-          ),
+          buildBottomNavigationBarItem('Journal', Icon(Icons.view_day_outlined)),
+          buildBottomNavigationBarItem('Progress', Icon(Icons.access_time)),
+          buildBottomNavigationBarItem('Challenges', Icon(Icons.animation)),
+          buildBottomNavigationBarItem('Upgrade', Icon(Icons.alt_route)),
+          buildBottomNavigationBarItem('Settings', Icon(Icons.settings)),
         ],
         onTap: (Index){
           _counter = Index;
@@ -87,6 +78,13 @@ class _MyHomePageState extends State<MyHomePage> {
         },
       ),
     );
+  }
+
+  BottomNavigationBarItem buildBottomNavigationBarItem(String text, Icon icon) {
+    return BottomNavigationBarItem(
+          label: text,
+          icon: icon,
+        );
   }
 }
 
