@@ -1,9 +1,11 @@
 import 'dart:ffi';
+import 'package:habitify/AddHabit.dart';
 import 'package:habitify/Challenges.dart';
 import 'package:habitify/Journal.dart';
 import 'package:habitify/Setting.dart';
 import 'package:habitify/Upgrade.dart';
 import 'package:intl/intl.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'NewArea.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +29,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/New_Area' : (context) => New_Area(),
         '/Progress' : (context) => progress(),
+        '/Add_Habit' : (context) => addHabit(),
       },
       home: MyHomePage(),
     );

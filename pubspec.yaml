@@ -38,6 +38,13 @@ dependencies:
   flutter_switch:
   flutter_speed_dial:
   percent_indicator:
+  firebase_core:
+  auto_size_text_field:
+  flutter_pickers:
+  flutter_datetime_picker:
+    git: https://github.com/Realank/flutter_datetime_picker.git
+  duration_picker: "^1.0.0"
+
 
 dev_dependencies:
   flutter_test:

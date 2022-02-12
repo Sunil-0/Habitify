@@ -1,6 +1,14 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:auto_size_text_field/auto_size_text_field.dart';
+import 'AddHabit.dart';
+import 'classModel.dart';
+
+
 class Journal extends StatefulWidget {
   const Journal({Key? key}) : super(key: key);
 
@@ -9,6 +17,8 @@ class Journal extends StatefulWidget {
 }
 
 class _JournalState extends State<Journal> {
+  TextEditingController textControl = TextEditingController();
+  String journal = "My Journal";
   Color selectedColor = Colors.blue;
   int _counter = 0;
   int navIndex = 0;
@@ -30,13 +40,43 @@ class _JournalState extends State<Journal> {
                 Text( (DateFormat('yMMM').format(DateTime.now())), style:TextStyle(color: Colors.grey[700])),
                 SizedBox(height: 10),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("My Journal", style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),),
-                    Icon(Icons.edit),
-                    SizedBox(width: 110,),
-                    appBarIcon(icon : Icons.school),
-                    SizedBox(width: 11,),
-                    appBarIcon(icon: Icons.article_outlined)
+                    Row(
+                      children: [
+                        IntrinsicWidth(
+                          child: TextFormField(
+                            maxLength: 15,
+                            controller: textControl,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: journal,
+                              hintStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+                              isCollapsed: false,
+                              counterText: '',
+                              suffixIcon: IconButton(
+                                onPressed: (){
+                                  textControl.text = '';
+                                  setState(() {
+                                  });
+                                },
+                                icon: Icon(Icons.edit),
+                              )
+                            ),
+                            autofocus: false,
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        appBarIcon(icon : Icons.school),
+                        SizedBox(width: 10,),
+                        appBarIcon(icon: Icons.article_outlined)
+                      ],
+                    )
                   ],
                 ),
                 SizedBox(height: 25),
@@ -68,10 +108,9 @@ class _JournalState extends State<Journal> {
                 selectedColor = Colors.orangeAccent;
               }
               else if(index == 3){
-                Navigator.pushNamed(context, '/New_Area');
                 index = 0;
                 setState(() {
-
+                  Navigator.pushNamed(context, '/New_Area');
                 });
               }
               setState(() {
@@ -210,9 +249,10 @@ class _JournalState extends State<Journal> {
                 ),
               ),
               Container(
+                padding: EdgeInsets.all(15),
                 child: Column(
                   children: [
-                    SizedBox(height: 80,),
+                    SizedBox(height: 120,),
                     Icon(Icons.all_inbox, size: 50,),
                     SizedBox(height: 10,),
                     Text('NoHabits Here', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
@@ -227,19 +267,19 @@ class _JournalState extends State<Journal> {
                         color: Colors.grey.shade200,
                       ),
                       child: Column(
-
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [habits(text: 'Habit1',), SizedBox(width: 15,), habits(text: 'Habit1',), SizedBox(width: 15,), habits(text: 'Habit1',)],),
+                            children: [habits(text: 'Meditate',), SizedBox(width: 15,), habits(text: 'Running',), SizedBox(width: 15,),],),
                           SizedBox(height: 15,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [habits(text: 'Habit1',), SizedBox(width: 15,), habits(text: 'Habit1',)],),
+                            children: [habits(text: 'Read Books',), SizedBox(width: 15,), habits(text: 'Write in Journal',)],),
                           SizedBox(height: 15,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [habits(text: 'Habit1',)],)
+                            children: [habits(text: 'Set a To-do List',), SizedBox(width: 15,), habits(text: 'Hit the Gym',)],)
                         ],
                       ),
                     )
@@ -373,7 +413,13 @@ class habits extends StatelessWidget {
           borderRadius: BorderRadius.circular(50),
           color: Colors.white
       ),
-      child: Row(children: [Icon(Icons.book), SizedBox(width: 10), Text(this.text)],),
+      child: GestureDetector(
+        child: Row(children: [Icon(Icons.note, color: Colors.grey,), SizedBox(width: 10), Text(this.text)],),
+        onTap: (){
+          AddHabit.habitName = text;
+          Navigator.pushNamed(context, '/Add_Habit');
+        },
+      ),
     );
   }
 }
